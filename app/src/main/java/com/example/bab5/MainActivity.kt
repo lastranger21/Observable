@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         val nim = findViewById<TextView>(R.id.nim)
         val kelas = findViewById<TextView>(R.id.kelas)
         val tombol1 = findViewById<Button>(R.id.button1)
+        val tombol2 = findViewById<Button>(R.id.button2)
         val todoVM = TodoViewModel()
         val adapter = TodoAdapter(todoVM.getTodos())
         val rvTodo = findViewById<RecyclerView>(R.id.rv_todo)
@@ -29,6 +30,13 @@ class MainActivity : AppCompatActivity() {
             todoVM.add(TodoModel(Nama, Nim, Kelas))
             rvTodo.adapter = adapter
             rvTodo.layoutManager = LinearLayoutManager(this)
+        }
+        viewModel.livedatatodos.observe(this) {
+
+            findViewById<TextView>(R.id.highlight).text = it}
+        tombol2.setOnClickListener {
+            val Nama = nama.getText().toString()
+            viewModel.getNama(Nama)
         }
 
     }
